@@ -1,152 +1,120 @@
 """
-arr = [3,0,1,1,9,7], a=7, b=2, c=3
 
+You are given an integer n.
 
-[3,0,1]
-Since 0 <= i < j < k < arr.length
+We need to group the numbers from 1 to n according to the sum of its digits. For example, the numbers 14 and 5 belong to the same group, whereas 13 and 3 belong to different groups.
 
-Step 1 (We start at 0,1,2) ---
-Pick i = 0 → arr[0] = 3; Since 0 <= i < j < k < arr.length
-Pick j = 1 → arr[1] = 0
-Pick k = 2 → arr[2] = 1
+Return the number of groups that have the largest size, i.e. the maximum number of elements.
 
-- for step 1, we satisfy the 0 <= i < j < k < arr.length rule
+Example 1:
 
-Step 2 [3,0,1]
-|arr[i] - arr[j]| = |3-0| = 3 <= 7
-|arr[j] - arr[k]| = |0-1| = |-1| = 1 <= 2          [YES]
-|arr[i] - arr[k]| = |3-1| = 2 <= 3
+Input: n = 13
+Output: 4
+Explanation: There are 9 groups in total, they are grouped according sum of its digits of numbers from 1 to 13:
+[1,10], [2,11], [3,12], [4,13], [5], [6], [7], [8], [9].
+There are 4 groups with largest size.
+Example 2:
 
-- for step 2, we must satisfy the Must be ≤ a,b,c rule
+Input: n = 2
+Output: 2
+Explanation: There are 2 groups [1], [2] of size 1.
 
+Constraints:
 
-[3,0,1]
-Step 1 [3,0,1]
-Pick i = 0 → arr[0] = 3;
-Pick j = 1 → arr[1] = 0;
-Pick k = 3 → arr[3] = 1;
+1 <= n <= 104
 
-- for us to use k=3 in step 1 is because since we tried k=2, we must try k=3
-    Now, to find all triplets, we must try all possible indices k greater than j
+if n = 13
+[1,10], [2,11], [3,12], [4,13], [5], [6], [7], [8], [9].
 
-    i = 0
-    j = 1
-    k can be any index greater than 1 → 2, 3, 4, 5
-    k=4 → (3,0,9) ❌ fails conditions (doesnt satisfy step 2 rule)
-    k=5 → (3,0,7) ❌ fails conditions (doesnt satisfy step 2 rule)
+if n = 15
+[1,10], [2,11], [3,12], [4,13], [5,14], [6,15], [7], [8], [9].
 
-    
-[3,1,1]    
-Step 1 [3,1,1]
-Pick i = 0 → arr[0] = 0; Since 0 <= i < j < k < arr.length
-Pick j = 2 → arr[1] = 1
-Pick k = 3 → arr[2] = 1
-
--For step 1, since k=4 fails the condition, we're stuck at k=3, but for j,
- we can go from j=1 -> j=2 which still falls in the
- 0 <= i < j < k < arr.length range
-
-Step 2 [3,1,1]
-|arr[i] - arr[j]| = |3-1| = 2 <= 7
-|arr[j] - arr[k]| = |1-1| = 0 <= 2          [YES]
-|arr[i] - arr[k]| = |3-1| = 2 <= 3
-
-
-[0,1,1]
-Step 1 [0,1,1]
-Pick i = 1 → arr[0] = 0; Since 0 <= i < j < k < arr.length
-Pick j = 2 → arr[1] = 1
-Pick k = 3 → arr[2] = 1
-
-- for step 1, we satisfy the 0 <= i < j < k < arr.length rule
-
-Step 2 [0,1,1]
-|arr[i] - arr[j]| = |0-1| = 1 <= 7
-|arr[j] - arr[k]| = |1-1| = 0 <= 2                 [YES]
-|arr[i] - arr[k]| = |0-1| = 1 <= 3
-
--for step 2, we must satisfy the Must be ≤ a,b,c rule
+if n = 25
+[1,10], [2,11], [3,12], [4,13], [5,14], [6,15], [7,16], [8,17], [9,18].
+[10], [11], until [25]
 
 
 
-Step 2 [1,1,9]
-|arr[i] - arr[j]| = |1-1| = 0 <= 7
-|arr[j] - arr[k]| = |1-9| = |-8| = 8 > 2 (Wrong)  
-|arr[i] - arr[k]| = |1-9| = |-8| 8 > 3
+*Step 1 Compute the digit sum
+    -Each number in the range must have a sum
+    -Operation for digit sum:
 
-[1,9,7]
-|arr[i] - arr[j]| = |1-9| = 8 > 7
-|arr[j] - arr[k]| = |9-7| = |-1| = 1 <= 2 (Wrong)
-|arr[i] - arr[k]| = |3-1| = 2 <= 3
+        For 1
+        Last digit: 1 % 10 = 1 → add to sum → sum = 1
+        Remaining number: 1 // 10 = 0 → stop (no more digits)
+        digit sum = 1
 
-*[3,0,1] and [0,1,1] 
+        For 10
+        Last digit: 10 % 10 = 0 → add to sum → sum = 0
+        Remaining number: 10 // 10 = 1 → continue
+        Last digit: 1 % 10 = 1 → add to sum → sum = 0 + 1 = 1
+        Remaining number: 1 // 10 = 0 → stop
+        digit sum = 1
 
-i = 0, j = 2, k = 3 -> [3,1,1]
+    -We can loop through n, initialize sum = 0 inside the loop
+    so that when the 2nd iteration is looping, sum is reset to 0,
+    initialize a while to loop through n > 0 and check last digit
+    and remaining digit
 
-for i in range(0, len(arr) - 3):
-    for j in range()
+    -Add sum to the result of iteration % 10
+    -Equate number to number // 10 so that when number = 0, the
+    loop stops since the condition is n > 0
+
+*Step 2 Keep track of groups
+    -We're going to use a dictionary to count how many numbers fall
+    into each digit sum group
+
+    -What that means is that the dictionary is going to count digit
+    sums that have the same value
+
+        Key - digit sum: Value - count of how many digit sums are equal
+            to 1,2,3,4 etc
+
+    -The dictionary is going to hold all the digit sums from 1 to n
+
+*Step 3 Find the largest group size
+
+*Step 4 Count how many groups have that size
+
+*Step 5 Return the answer
 
 
-    
+So everytime a loop loops through n, it must:
+    compute the digit sum
+    group the digit sum with the count inside dictionary
 
 
-arr = [3,0,1,1,9,7], a=7, b=2, c=3
+
 
 """
 
-"""
+def countLargestGroup(n):
 
-1. range(0, len(arr)-2) is for looping from arr[0] to
-    arr[3] because i=0, j=1, k=2
-
-2. range(i+1, len(arr)-1)) is for looping from arr[1] to
-    arr[4] because it has to check i=1, j=2, k=3 and for
-    that to be possible, j has to loop from [1] to
-    arr[4] to leave room for k or only check 3 numbers 
-    from arr[1] since a[0] has been checked 
-
-3. range(j+1, len(arr)) is for looping the last 3 digits by
-    starting from arr[2] to arr[5] which starts at arr[3] =
-    1 -> [1,9,7]
-
-4. if abs(arr[i] - arr[j]) <= a and \
-        abs(arr[j] - arr[k]) <= b and \
-        abs(arr[i] - arr[k]) <= c:
-
-        count += 1 must be in line with the if stmt
-
-5. return count must be in line with the for loop
-    \ means this continues on the next line
-
-"""
-
-class Solution:
-    def countGoodTriplets(self, arr, a, b, c):
-
-        count = 0
-        n = len(arr)
-
-        # Lets start looping through i,j,k
-        for i in range(0, n-2): #1
-            for j in range(i+1, n-1): #2
-                for k in range(j+1, n): #3
-
-                    #4 Lets check the conditions Must <= a,b,c
-                    if abs(arr[i] - arr[j]) <= a and \
-                         abs(arr[j] - arr[k]) <= b and \
-                         abs(arr[i] - arr[k]) <= c:
-                        
-                        count += 1
-          
-        #5 Return count when arr, a, b, and c are provided            
-        return count
+    # Step 1: function to compute digit sums
+    def digit_sum(x):
+        total = 0
+        while x > 0:
+            total += x % 10
+            x //= 10
+        return total
     
+    # Step 2: dictionary to keep track of groups
+    groups = {}
 
-arr = [3,0,1,1,9,7]
-a, b, c = 7, 2, 3
+    for i in range(1, n+1): # 0 <= n <= 10000
+        s = digit_sum(i)
+        groups[s] = groups.get(s, 0) + 1
 
-sol = Solution()
-print(sol.countGoodTriplets(arr, a, b, c))
+    # Step 3: Find max group size
+    max_size = max(groups.values())
+
+    # Step 4: count how many groups have this max size
+    return sum(1 for size in groups.values() if size == max_size)
+
+print(countLargestGroup(25))
+print(countLargestGroup(2))
+        
+
         
     
 

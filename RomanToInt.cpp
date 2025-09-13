@@ -44,6 +44,26 @@ Constraints:
 s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
+
+STEPS
+
+
+1 - Create a class with a function that takes a string and returns an integer
+2 - Inside the function, declare a map that will store characters as keys
+	and integers as variables
+
+3 - Declare a total variable that is = 0 which will record the values
+4 - Use the for loop to loop through the string parameter or the characters
+	of the string with the length of the string as the range
+
+5 - Inside the if, the i+1 means is there a next character to look at meaning
+	 the i+1 is the position of the next character. It also prevents the code
+	from being out of bounds
+
+6 - total += roman_values[s[i + 1]] - roman_values[s[i]]; says add the current
+	total with roman_values [s[i + 1]] - roman_values[s[i]]
+
+
 */
 
 #include <iostream>

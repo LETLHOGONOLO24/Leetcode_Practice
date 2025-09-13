@@ -73,17 +73,67 @@ if n = 25
     -The dictionary is going to hold all the digit sums from 1 to n
 
 *Step 3 Find the largest group size
+    -We're going to use a for loop to loop through i to n + 1 so that
+    n is also counted
+
+    -s is going to store the digit_sum of each iteration so that it can
+    be reused
+
+    -So groups[s] = groups.get(s, 0) + 1:
+        1.Look up the current count for digit sum s.
+        2.If it doesn't exist yet, treat it as 0.
+        3.Add 1 to update the count.
+
+    -Lets use s = 1:
+        -groups.get(1, 0) → returns 0 (1 isn't in groups yet).
+        -groups[1] = 0 + 1 → 1.
+        -groups = {1: 1}
+
+    -For s = 2
+         -groups.get(s, 0) → returns 0 (2 isn't in groups yet).
+         -groups[2] = 0 + 1 → 1.
+         -groups = {2: 1}
+
+    -Lets use i = 10, s = 1:
+        -digit_sum(10) = 1
+        -groups.get(1, 0) → returns 1 (already exists).
+        -groups[1] = 1 + 1 → 2.
+        -groups = {1: 2}
+
+    -get(s, 0) safely checks the dictionary for key s.
+    -If missing → start at 0.
+    -Add +1 to count another number in that group.
 
 *Step 4 Count how many groups have that size
 
-*Step 5 Return the answer
+    -groups.values() → gives you a list-like object of
+    all the counts (the group sizes).
+    -sum(1 for ...) is a generator expression inside sum
 
+        -It loops over every size in groups.values().
+        -If size == max_size, it yields a 1.
+        -Otherwise, it yields nothing.
 
-So everytime a loop loops through n, it must:
-    compute the digit sum
-    group the digit sum with the count inside dictionary
+        -So you’re basically counting how many times the
+        largest size appears.
+        -It's like saying for each group whose size equals max_size,
+        add 1 to the total
 
+    -So basically for n = 11:
+        -groups = {1:2, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:2, 11:2}
+        -groups.values() → [2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2]
 
+        -max_size = max(groups.values()) = 2
+        -1 for size in groups:
+            -Loop through each size in [2,1,1,1,1,1,1,1,1,2,2]
+            -If size == 2, yield 1
+            -Else skip
+
+            -Size = 2 -> yield 1
+            -Size = 1 -> skip
+            -Size = 2 -> yield 1
+
+            -So the generator produces sum([1,1,1]) = 3
 
 
 """

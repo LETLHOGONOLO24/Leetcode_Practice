@@ -46,6 +46,9 @@ STEPS
     a string doesn't match a prefix. It makes sure that the string
     matches the prefix
 
+7 - The if prefix checks If prefix becomes an empty string (""), it
+    means there is no common prefix at all between the strings.
+
 
 """
 

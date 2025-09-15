@@ -23,6 +23,30 @@ Constraints:
 0 <= strs[i].length <= 200
 strs[i] consists of only lowercase English letters if it is non-empty.
 
+
+STEPS
+
+1 - We create a function that takes in a list of strings as a parameter
+2 - Inside the function, an If statement must check whether the list
+    is empty or not using the not operator
+
+3 - We must set prefix to the first string in the array because a prefix
+    must come from one of the strings and using logic, it must be the
+    first string for convenience
+
+4 - Since we already set prefix to the first string, we don't need to
+    compare it against itself, so we must start looping from the 2nd
+    string inside the list to compare it with the first string
+
+5 - The while loop doesn't check each character of the string directly.
+    Instead, it keeps shortening the prefix (by chopping off the last
+    character) until the current word starts with that prefix.
+
+6 - while not s.startswith(prefix) is a condition for what happens when
+    a string doesn't match a prefix. It makes sure that the string
+    matches the prefix
+
+
 """
 
 

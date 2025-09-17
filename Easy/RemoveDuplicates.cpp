@@ -55,7 +55,24 @@ STEPS
 2 - The if statement checks whether the vector is empty, and if it's 
     indeed empty, 0 will be returned
 
-3 - 
+3 - We set k to 1 because since k is meant to count how many unique
+     elements we've found so far, the first element doesn't need any
+     comparison, there's nothing before it, so it must be unique. That's
+     why we initialize k = 1 because we've already found one unique 
+     element at index 0
+
+4 - The i of the for loop starts at 1 because we have to compare the
+    2nd element to the first. The if statement says if nums[1] !=
+    nums[0], we skip because they are equal, but if they are not equal
+    like nums[2] != nums[1], nums[1] = nums[2] which means the 2nd
+    iterator nums[1] is now 1 and we increment k to count the unique
+    values
+
+5 - In the main function, when we set k to sol.removeDuplicates(nums1),
+    we say the function removeDuplicates to perform its operations on
+    nums1 and return k
+
+6 - The for loop will loop from 0 until k and print out every iteration
 
 */
 
@@ -75,8 +92,8 @@ class Solution {
         for (int i = 1; i < nums.size(); i++) {
             if (nums[i] != nums[k-1]) {
                 nums[k] = nums[i];
+                k++;
             }
-            k = nums.size();
         }
 
         return k;

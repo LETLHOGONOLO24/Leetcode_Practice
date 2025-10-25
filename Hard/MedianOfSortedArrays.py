@@ -52,3 +52,9 @@ class Solution:
         else:
             return float(merged[mid])
         
+sol = Solution()
+nums1 = [1,2]
+nums2 = [3,4]
+result = sol.findMedianSortedArrays(nums1, nums2)
+print(result)
+        

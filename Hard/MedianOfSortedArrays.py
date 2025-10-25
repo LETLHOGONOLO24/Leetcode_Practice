@@ -36,7 +36,21 @@ nums2.length == n
 STEPS
 
 
-1 - 
+1 - The class has a function that takes in 2 Lists as parameters
+2 - We must create a third list called merged that consist of list1 and
+    list2 and they must be in the sorted method
+
+3 - We must find the length of the merged list (n)
+4 - We must have a middle value so that we can use it to find the median
+
+5 - If checks whether n is divisible by 2 or not and if the condition is
+    true, we return merged at position mid-1 + merged at position mid
+    divided by 2 because if our n is an even number, the median will
+    consist of 2 values so we have to divide them by 2
+
+6 - Else returns merged at position mid inside float because if n is an
+    odd number, the position of the median is going to be a single value
+    and that single value is merged at position mid
 
 
 """

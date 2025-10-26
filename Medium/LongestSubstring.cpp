@@ -35,6 +35,22 @@ s consists of English letters, digits, symbols and spaces.
 STEPS
 
 
+1 - We create an int function that takes a string as a parameter
+2 - left is going to be the left part of the sliding window -> we set it to
+    zero
+
+3 - We also set longest to zero because we want to count the longest substring
+4 - We create a set that is going to store non-repeating characters
+
+5 - Our index r is going to be the right window of the sliding window
+6 - The while loop is going to check if a character in a string is in the set
+    and if the character is in the set, remove it and increment the left window
+
+7 - W is for calculating the substring and when we start, we're going to add
+    the first character, so that 1 represents adding that 1st character
+
+8 - longest is going to be the max method with longest and w as its arguments
+
 
 
 */

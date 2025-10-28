@@ -70,7 +70,7 @@ STEPS
 
     - Then for longer lengths, we can quickly check using previously stored results
 11 - This reduces the time complexity from O(n³) to O(n²) while using O(n²) space to
-    store intermediate results.
+store intermediate results.
 
 
 */

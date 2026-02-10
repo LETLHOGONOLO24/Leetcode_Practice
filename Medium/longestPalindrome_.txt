@@ -1,0 +1,31 @@
+Pseudocode for longestPalindrome - i want to understand why they use Dynamic Programming
+
+1 - Set a variable that will be equal to the size of the string
+2 - If the size of the string is less than or equal to 1, return the string because a single
+	character is a palindrome
+	
+3 - Create a 2D boolean vector of size n x n, initialised to false to store whether substring
+	from index i to j is a palindrome
+4 - Inside that boolean vector:
+	- Set your start variable to 0 to track the starting index
+	
+	- Set your maxlength variable to 1 because the first character is already a palindrome
+	- Loop through the length of the string and check all single characters whether they
+		are palindromes or not by setting your boolean vector at any position must be true
+	
+	- Set a 2nd for loop that will loop through the string to check for 2 character palindrome
+	and must not be out of bounds
+	- Inside the for loop:
+	
+		- Check if a character at a specific index is equal to a character next to it to check if
+		two adjacent characters are the same
+		- if the condition is true, set the boolean vector at a specific index and an index next
+		to it to true to mark it as a palindrome
+		
+		- Set your start to the specific index and set your maxlength to 2 to remember this palindrome
+	- Create a 3rd for loop to check longer palindromes with length 3+ that must start at 3 because we
+	want to check for longer palindromes and the index must be less than the length of the string
+	
+	- Inside the for loop:
+		- Create a 4th for loop where the index is going to start at 0 and is going to be less
+		than or equal to n subtracted by the index that starts at 3 because
